@@ -16,9 +16,7 @@ public:
                 continue;
             }
             if(st.top().second < k-1){
-                pair<char,int> p = st.top();
-                st.pop();
-                st.push({p.first, p.second + 1});
+               st.top().second++;
                 continue;
             }
             else{
