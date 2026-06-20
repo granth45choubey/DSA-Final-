@@ -4,12 +4,21 @@ public:
         int m = matrix.size();
         int n = matrix[0].size();
         bool flag = false;
-        for(int i =0;i<m; i++){
-            for(int j=0;j<n;j++){
-                if(matrix[i][j] == target){
-                    flag = true;
-                }
+        int low = 0;
+        int high = m*n -1;
+
+        while(low <= high){
+            int mid = (low + high)/2;
+            int row = mid/n;
+            int column = mid % n;
+
+            if(matrix[row][column] == target){
+                return true;
             }
+            else if(matrix[row][column] > target){
+                high = mid -1;
+            }
+            else low = mid + 1;
         }
         return flag;
     }
