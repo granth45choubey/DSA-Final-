@@ -9,16 +9,15 @@
  */
 class Solution {
 public:
-     TreeNode* ans = nullptr;
 
-    int fun(TreeNode* root, TreeNode* p, TreeNode* q)
+    int fun(TreeNode* root, TreeNode* p, TreeNode* q,TreeNode* &ans)
     {
         if(root == nullptr)
             return 0;
 
-        int left = fun(root->left,p,q);
+        int left = fun(root->left,p,q,ans);
 
-        int right = fun(root->right,p,q);
+        int right = fun(root->right,p,q,ans);
 
         int self = 0;
 
@@ -37,7 +36,8 @@ public:
                                    TreeNode* p,
                                    TreeNode* q)
     {
-        fun(root,p,q);
+        TreeNode* ans = nullptr;
+        fun(root,p,q,ans);
 
         return ans;
     }
