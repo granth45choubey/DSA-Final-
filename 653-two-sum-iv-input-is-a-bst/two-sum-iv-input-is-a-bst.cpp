@@ -17,7 +17,6 @@ public:
         fun(root->left,k,ans);
         ans.push_back(root->val);
         fun(root->right,k,ans);
-        return;
     }
 
     bool findTarget(TreeNode* root, int k) {
@@ -31,8 +30,7 @@ public:
         while(low < high){
             if(ans[low] + ans[high] == k){ 
                 return true;
-                
-            }
+             }
             else if(ans[low] + ans[high] < k) low++;
             else high--;
         }
