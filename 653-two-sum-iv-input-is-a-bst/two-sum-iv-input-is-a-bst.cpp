@@ -21,7 +21,7 @@ public:
 
     bool findTarget(TreeNode* root, int k) {
         vector<int> ans;
-        if(root == nullptr) return false;
+       
         fun(root,k,ans);
         int n = ans.size();
         int low = 0;
