@@ -31,7 +31,7 @@ public:
         while(low < high){
             if(ans[low] + ans[high] == k){ 
                 return true;
-                break;
+                
             }
             else if(ans[low] + ans[high] < k) low++;
             else high--;
