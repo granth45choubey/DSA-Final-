@@ -12,55 +12,62 @@
 class Solution {
 public:
 
-    void inorder(TreeNode* root,vector<int> &res){
-        if(root == nullptr) return;
+    TreeNode* prev = nullptr;
 
-        inorder(root->left,res);
-        res.push_back(root->val);
-        inorder(root->right,res);
-    }
+    int galat = 0;
 
-    void fix(TreeNode* root, int &x, int &y){
-        if(root == nullptr) return;
+    TreeNode* g1first = nullptr;
+    TreeNode* g1second = nullptr;
 
-        if(root->val == x) root->val = y;
-        else if(root->val == y) root->val =x;
+    TreeNode* g2first = nullptr;
+    TreeNode* g2second = nullptr;
 
-        fix(root->left,x,y);
-        fix(root->right,x,y);
-    }
+    void fun(TreeNode* root)
+    {
+        if(root == nullptr)
+            return;
 
-    void recoverTree(TreeNode* root) {
-        vector<int> res;
-        inorder(root,res);
+        fun(root->left);
 
-        int galat = 0;
-        int g1first,g1second,g2first,g2second;
-        for(int i=0;i< res.size()-1; i++){
-            if(res[i] >= res[i+1]){
-                if(galat == 0){
-                    g1first = res[i];
-                    g1second = res[i+1];
+        if(prev == nullptr)
+        {
+            prev = root;
+        }
+        else
+        {
+            if(root->val < prev->val)
+            {
+                if(galat == 0)
+                {
+                    g1first = prev;
+                    g1second = root;
                     galat++;
                 }
-                else{
-                    g2first = res[i];
-                    g2second = res[i+1];
+                else
+                {
+                    g2first = prev;
+                    g2second = root;
                     galat++;
                 }
             }
-        }
-        int x, y;
-        if(galat == 1){
-            x = g1first;
-            y = g1second;
-        }
-        else{
-            x = g1first;
-            y = g2second;
-        }
-        fix(root,x,y);
 
-        
+            prev = root;
+        }
+
+        fun(root->right);
+    }
+
+    void recoverTree(TreeNode* root)
+    {
+        fun(root);
+
+        if(galat == 1)
+        {
+            swap(g1first->val, g1second->val);
+        }
+        else
+        {
+            swap(g1first->val, g2second->val);
+        }
     }
 };
