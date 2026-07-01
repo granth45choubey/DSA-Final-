@@ -12,21 +12,24 @@
 class Solution {
 public:
 
-    bool fun(TreeNode* root,vector<int> &res){
-        if(root == nullptr) return true;
+    void fun(TreeNode* root,TreeNode* &prev,bool &ans){
+        if(root == nullptr) return;
 
-        fun(root->left, res);
-        res.push_back(root->val);
-        fun(root->right,res);
-
-        for(int i =0; i< res.size()-1;i++){
-            if(res[i]>= res[i+1]) return false;
+        fun(root->left,prev,ans);
+        if(prev == nullptr) prev = root;
+        else{
+            if(root->val <= prev->val){
+                ans = false;
+            }
+            prev = root;
         }
-        return true;
+        fun(root->right,prev,ans);
     }
 
     bool isValidBST(TreeNode* root) {
-        vector<int> res;
-        return fun(root,res);
+      TreeNode* prev = nullptr;
+      bool ans = true;
+      fun(root,prev,ans);
+      return ans;
     }
 };
