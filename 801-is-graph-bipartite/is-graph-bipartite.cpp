@@ -8,8 +8,10 @@ public:
         for(int j=0;j<graph[node].size();j++){
             int neigh = graph[node][j];
 
-            if(color[neigh] != -1 && color[neigh] == c)
+            if(color[neigh] != -1 && color[neigh] == c){
                 res = false;
+                return;
+            }
             if(color[neigh] == -1){
                 dfs(graph,neigh,1-c,color);
             }
